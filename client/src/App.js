@@ -16,13 +16,35 @@ function App() {
   const onChange = useCallback((val) => {
     setInputValue(val);
   }, []);
+  
 
-  function handleClick () {
-    console.log({inputValue});
+  const handleClick = async (e) => {
+    // console.log({inputValue});
+    e.preventDefault();
+
+    
+    let codeResponse = {};
+    codeResponse["code"] = inputValue.toString();
+    console.log(codeResponse);
+
+    try{
+      const response = await fetch('http://localhost:8000/',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(codeResponse),
+      
+    });
+    } catch (error){
+      console.log("Error");
+    }
+
   }
 
   return (
     <div className='appa'>
+      
       <div>
         <CodeMirror 
           width='1920px'
