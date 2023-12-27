@@ -2,10 +2,14 @@ import './editor.css';
 import nighModeButton from '../assets/images/night-mode.png';
 
 
+
 function Editor(){
+
     return(
         <div className='center-container'>
-            <div className="editor"></div>
+            <div className="editor">
+            
+            </div>
             <NightModeButton></NightModeButton>
         </div>
         
