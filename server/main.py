@@ -18,6 +18,7 @@ app.add_middleware(
     allow_credentials=True,
 )
 
+
 class Item(BaseModel):
     code: str
 
