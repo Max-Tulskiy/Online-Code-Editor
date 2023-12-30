@@ -6,7 +6,6 @@
 
 }
 
-
 .wrapper{
   display: grid;
   grid-template-columns: 0.5fr 2fr 0.5fr;
@@ -18,12 +17,12 @@
   //background-color: #272822;
 }
 
-
 .output{
   border: 1px solid black;
   height: 100%;
   
 }
+
 .output-label{
   display: flex;
   height: 44px;
@@ -31,8 +30,6 @@
   justify-content: center;
   font-weight: bold;
   text-align: center;
-
-
 }
 
 .setup{

@@ -11,20 +11,18 @@ import { useCallback } from 'react';
 function App() {
 
   const [inputValue, setInputValue] = useState("");
-  const [responseData, setResponseData] = useState("") 
+  const [responseData, setResponseData] = useState(""); 
 
-  //--------------------------------------------------------
-  const [inputPerems, setInputPerems] = useState('');
+  const [inputPerems, setInputPerems] = useState("");
 
-  const onChangePerems = useCallback((Perems) => {
-    setInputPerems(Perems);
-  }, []);
-
-  //-----------------------------------------
 
   const onChange = useCallback((val) => {
     setInputValue(val);
   }, []);
+
+  const handleChangePerems = (perems) => {
+    setInputPerems(perems);
+  };
   
 
   const handleClick = async (e) => {
@@ -32,7 +30,9 @@ function App() {
     e.preventDefault();
 
     let codeResponse = {};
+
     codeResponse["code"] = inputValue.toString();
+    codeResponse["variables"] = inputPerems.toString();
 
     try{
       const response = await fetch('http://localhost:8000/',{
@@ -50,9 +50,11 @@ function App() {
       }
     
     } catch (error){
+      
       console.log("Error");
     } 
   }
+
 
   return (
     <div className='container'>
@@ -68,11 +70,9 @@ function App() {
 
       <div className='wrapper'>
 
-        <InputData 
-          value = {inputPerems}
-          onChange={onChangePerems}>
-        </InputData>
-     
+        <InputData onChange={handleChangePerems}/>
+
+
         <div className='output'>
           <div className='output-label'>
             Output:

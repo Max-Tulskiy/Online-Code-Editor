@@ -1,5 +1,5 @@
 
-import time
+from typing import Any
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
@@ -23,11 +23,10 @@ app.add_middleware(
     allow_credentials=True,
 )
 
+
 class Item(BaseModel):
     code: str
-
-
-
+    variables: Any
 
 
 async def get_token(data):
@@ -59,8 +58,8 @@ async def get_answer(token):
             return full_answer["stdout"]
         else:
             print("Err 404")
-        
-        
+
+
 @app.post('/')
 async def input(obj: Item):
 
@@ -68,7 +67,7 @@ async def input(obj: Item):
         "source_code": obj.code,
         "language_id": "71",
         "number_of_runs": None,
-        "stdin": "Judge0",
+        "stdin": obj.variables,
         "expected_output": None,
         "cpu_time_limit": None,
         "cpu_extra_time": None,
@@ -83,10 +82,7 @@ async def input(obj: Item):
 }
     
     token = await get_token(data)
-
     result = await get_answer(token)
-    print(result)
-
     my_dict = {"answer": result}
 
     return my_dict
