@@ -1,8 +1,7 @@
 import './App.css';
 import CodeMirror from "@uiw/react-codemirror";
-import Editor from './components/text-editor/text-editor';
-import OutputBox from './components/output-box/OutputBox';
 import SendButton from './components/sendButton/sendButton';
+import InputData from './components/input-data/input-data';
 import { okaidia } from '@uiw/codemirror-theme-okaidia';
 import { useState } from 'react';
 import { useCallback } from 'react';
@@ -14,6 +13,15 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [responseData, setResponseData] = useState("") 
 
+  //--------------------------------------------------------
+  const [inputPerems, setInputPerems] = useState('');
+
+  const onChangePerems = useCallback((Perems) => {
+    setInputPerems(Perems);
+  }, []);
+
+  //-----------------------------------------
+
   const onChange = useCallback((val) => {
     setInputValue(val);
   }, []);
@@ -23,7 +31,6 @@ function App() {
     
     e.preventDefault();
 
-    
     let codeResponse = {};
     codeResponse["code"] = inputValue.toString();
 
@@ -42,37 +49,42 @@ function App() {
         setResponseData(answer);
       }
     
-    
     } catch (error){
       console.log("Error");
-    }
-
-    
+    } 
   }
 
   return (
-    <div className='appa'>
+    <div className='container'>
       
       <div>
         <CodeMirror 
-          width='1920px'
-          height='400px'
+          className='code-editor'
+          height='50vh'
           value={inputValue}
           onChange={onChange}
           theme={okaidia}/>
       </div>
-    
-     <div>
 
-      <SendButton onClick={handleClick}>Run</SendButton>
+      <div className='wrapper'>
+
+        <InputData 
+          value = {inputPerems}
+          onChange={onChangePerems}>
+        </InputData>
      
-     </div>
+        <div className='output'>
+          <div className='output-label'>
+            Output:
+          </div> 
+          <pre>{JSON.stringify(responseData.answer, null, 2)}</pre>
+        </div>
 
-     <div>
-      Результат: 
-      <pre>{JSON.stringify(responseData.answer, null, 2)}</pre>
-     </div>
-    
+        <div className='setup'>
+          <SendButton onClick={handleClick}>Run</SendButton>
+        </div>
+      </div>
+        
     </div>
   );
 }
