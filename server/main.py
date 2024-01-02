@@ -27,6 +27,7 @@ app.add_middleware(
 class Item(BaseModel):
     code: str
     variables: Any
+    language_id: str
 
 
 async def get_token(data):
@@ -45,9 +46,7 @@ async def get_token(data):
 
 async def get_answer(token):
     urla = f"http://localhost:2358/submissions/{token.get('token')}"
- 
     async with httpx.AsyncClient() as client:
-        
         print("Выполнение...")
         await asyncio.sleep(5)
 
@@ -65,7 +64,7 @@ async def input(obj: Item):
 
     data = {
         "source_code": obj.code,
-        "language_id": "71",
+        "language_id": obj.language_id,
         "number_of_runs": None,
         "stdin": obj.variables,
         "expected_output": None,
@@ -80,11 +79,8 @@ async def input(obj: Item):
         "max_file_size": None,
         "enable_network": None,
 }
-    
     token = await get_token(data)
     result = await get_answer(token)
     my_dict = {"answer": result}
-
+    print(obj)
     return my_dict
-
-
