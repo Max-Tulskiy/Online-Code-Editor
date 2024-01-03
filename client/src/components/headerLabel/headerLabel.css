@@ -1,0 +1,21 @@
+.label-header{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+    height: 10%;
+    background-color: #2E3235;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+    border-radius: 10px;
+  }
+  
+
+.label-text{
+  font-weight: bolder;
+  color: #fff;
+}
+
+.label-account{
+  margin-right: 20px;
+}

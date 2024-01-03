@@ -1,5 +1,5 @@
 import './select-lang.css';
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Select from "react-select";
 import { languages } from './allLangs.js';
 
@@ -17,13 +17,19 @@ export default function SelectLanguage({onSelect}) {
    const onChange = (newLang) => {
       setCurrentLang(newLang.label);
       setLangId(newLang.value);
+   }
+
+   useEffect(() => {
       onSelect(langId);
+    }, [langId, onSelect]);
+
+   const styles = {
+      color: 'blue',
    }
 
     return(
-       <div>
-        <p>Выберите язык</p>
-        <Select onChange={onChange} value={getValue()} options={languages}></Select>
+       <div className='select-language'>
+        <Select onChange={onChange} value={getValue()} options={languages} style={styles} placeholder='Choose lang'></Select>
        </div>
     )
 }

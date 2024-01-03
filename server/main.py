@@ -1,11 +1,9 @@
-
 from typing import Any
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 import asyncio
 from pydantic import BaseModel
-
 
 app = FastAPI() 
 
@@ -38,30 +36,34 @@ async def get_token(data):
 
         if response.status_code // 100 == 2:
             token_data = response.json()
-
             return token_data
         else:
-            print("Err in processing token")
+           return None
 
 
 async def get_answer(token):
-    urla = f"http://localhost:2358/submissions/{token.get('token')}"
+
+    getStdOut = f"http://localhost:2358/submissions/{token.get('token')}"
+    
     async with httpx.AsyncClient() as client:
         print("Выполнение...")
         await asyncio.sleep(5)
 
-        response1 = await client.get(urla)
+        response1 = await client.get(getStdOut)
 
         if response1.status_code // 100 == 2:
             full_answer = response1.json()
             return full_answer["stdout"]
         else:
-            print("Err 404")
+            return None
 
 
 @app.post('/')
 async def input(obj: Item):
 
+    if obj.language_id == '':
+        return {"answer": "Choose language"}    
+        
     data = {
         "source_code": obj.code,
         "language_id": obj.language_id,
@@ -80,7 +82,8 @@ async def input(obj: Item):
         "enable_network": None,
 }
     token = await get_token(data)
-    result = await get_answer(token)
+    if token:
+        result = await get_answer(token)
     my_dict = {"answer": result}
-    print(obj)
+
     return my_dict

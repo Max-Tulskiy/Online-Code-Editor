@@ -2,11 +2,11 @@ import './App.css';
 import CodeMirror from "@uiw/react-codemirror";
 import SendButton from './components/sendButton/sendButton';
 import InputData from './components/input-data/input-data';
-import SelectLanguage from './components/select_lang/select-lang';
-import { okaidia } from '@uiw/codemirror-theme-okaidia';
-import { useState, useEffect } from 'react';
+import HeaderLabel from './components/headerLabel/headerLabel';
+import {basicDark} from '@uiw/codemirror-theme-basic';
+import { useState } from 'react';
 import { useCallback } from 'react';
-
+import { langs } from '@uiw/codemirror-extensions-langs';
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
   const [responseData, setResponseData] = useState(""); 
   const [inputVariables, setInputVariables] = useState("");
   const [loading, setLoading] = useState(false);
-  const [langId, setLangId] = useState(71);
+  const [langId, setLangId] = useState(null);
 
 
   const api_server = 'http://localhost:8000/';
@@ -34,16 +34,12 @@ function App() {
     setLoading(true);
 
     e.preventDefault();
-
     
     let codeResponse = {};
     codeResponse["code"] = inputValue.toString();
     codeResponse["variables"] = inputVariables.toString();
-    if(langId){
-      codeResponse["language_id"] = langId.toString();
-    }
+    codeResponse["language_id"] = langId.toString();
     
-
     try{
       const response = await fetch(api_server, {
       method: 'POST',
@@ -64,25 +60,28 @@ function App() {
       console.log("Error");
     } 
     setLoading(false);
-    
   }
 
-  const handleLangId = useCallback((id) => {
+  const handleLangId = (id) => {
     setLangId(id);
-    console.log("id: ", id)
-  }, []);
+    console.log('id', id);
+    console.log('langId', langId);
+  };
 
 
   return (
     <div className='container'>
       
-      <div>
+      <HeaderLabel onSelect={handleLangId}></HeaderLabel>
+
+      <div className='input-code'>
         <CodeMirror 
           className='code-editor'
-          height='50vh'
+          height='60vh'
           value={inputValue}
           onChange={onChange}
-          theme={okaidia}/>
+          extensions={[langs.python()]}
+          theme={basicDark}/>
       </div>
 
       <div className='wrapper'>
@@ -100,10 +99,7 @@ function App() {
         </div>
 
         <div className='setup'>
-          <SendButton onClick={handleClick}>Run</SendButton>
-         
-          <SelectLanguage onSelect={handleLangId}/>
-            
+          <SendButton onClick={handleClick}>Run</SendButton>         
         </div>
       </div>
         

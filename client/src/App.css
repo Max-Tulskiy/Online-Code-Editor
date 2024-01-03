@@ -1,9 +1,17 @@
 .container{  
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  justify-content: center;
+  height: 99vh;
+  background-color: grey;
+}
 
+.input-code{
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 5px;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .wrapper{
@@ -13,14 +21,15 @@
   margin-top: 5px;
   margin-left: 5px;
   margin-right: 5px;
-  height: 50%;
-  //background-color: #272822;
+  height: 40%;
 }
 
 .output{
+  background-color: #2E3235;
   border: 1px solid black;
+  border-radius: 15px;
   height: 100%;
-  
+  color: #fff;
 }
 
 .output-label{
@@ -35,8 +44,13 @@
 .setup{
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   border: 1px solid black;
+  border-radius: 15px;
   height: 100%;
+  margin-right: 10px;
+  background-color: #2E3235;
+  color: #fff;
 }
 
