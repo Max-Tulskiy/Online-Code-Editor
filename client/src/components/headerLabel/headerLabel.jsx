@@ -20,7 +20,6 @@ export default function HeaderLabel({onSelect}) {
             <SelectLanguage onSelect={handleLangId}></SelectLanguage>
             <div className='label-text'>Code editor</div> 
             <div className='label-account'>
-             
             </div>
         </header>
     )

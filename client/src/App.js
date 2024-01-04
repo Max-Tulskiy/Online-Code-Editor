@@ -7,13 +7,14 @@ import {basicDark} from '@uiw/codemirror-theme-basic';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { langs } from '@uiw/codemirror-extensions-langs';
+import  useLocalStorage from './hooks/useLocalStorage'
 
 
 function App() {
 
-  const [inputValue, setInputValue] = useState("");
-  const [responseData, setResponseData] = useState(""); 
-  const [inputVariables, setInputVariables] = useState("");
+  const [inputValue, setInputValue] = useLocalStorage('inputValue', '');
+  const [responseData, setResponseData] = useLocalStorage('responseData', '');
+  const [inputVariables, setInputVariables] = useLocalStorage('inputVariables', '');
   const [loading, setLoading] = useState(false);
   const [langId, setLangId] = useState(null);
 
@@ -22,11 +23,11 @@ function App() {
   
   const onChange = useCallback((val) => {
     setInputValue(val);
-  }, []);
+  }, [setInputValue]);
 
-  const handleChangeVariables = (vars) => {
+  const handleChangeVariables = useCallback((vars) => {
     setInputVariables(vars);
-  };
+  },[setInputVariables]);
   
 
   const handleClick = async (e) => {
@@ -86,7 +87,7 @@ function App() {
 
       <div className='wrapper'>
 
-        <InputData onChange={handleChangeVariables}/>
+        <InputData onChange={handleChangeVariables}>{inputVariables}</InputData>
 
         <div className='output'>
           <div className='output-label'>
