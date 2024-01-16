@@ -7,18 +7,18 @@ import {basicDark} from '@uiw/codemirror-theme-basic';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { langs } from '@uiw/codemirror-extensions-langs';
-import  useLocalStorage from './hooks/useLocalStorage'
+import  useLocalStorage from './hooks/useLocalStorage';
+import React from 'react';
 
 
 function App() {
 
   const [inputValue, setInputValue] = useLocalStorage('inputValue', '');
-  const [responseData, setResponseData] = useLocalStorage('responseData', '');
+  const [responseData, setResponseData] = useState('');
   const [inputVariables, setInputVariables] = useLocalStorage('inputVariables', '');
   const [loading, setLoading] = useState(false);
   const [langId, setLangId] = useState(null);
-
-
+  
   const api_server = 'http://localhost:8000/';
   
   const onChange = useCallback((val) => {
@@ -29,7 +29,6 @@ function App() {
     setInputVariables(vars);
   },[setInputVariables]);
   
-
   const handleClick = async (e) => {
     
     setLoading(true);
@@ -61,6 +60,7 @@ function App() {
       console.log("Error");
     } 
     setLoading(false);
+
   }
 
   const handleLangId = (id) => {
@@ -69,7 +69,7 @@ function App() {
     console.log('langId', langId);
   };
 
-
+  
   return (
     <div className='container'>
       
@@ -93,10 +93,10 @@ function App() {
           <div className='output-label'>
             Output:
           </div> 
+          <div className='output-answer'>
+            {loading ? (<p>loading...</p>):( <pre>{responseData.answer}</pre> )}
+          </div>
           
-          {loading && <p>loading...</p>}
-
-          <pre>{JSON.stringify(responseData.answer, null, 2)}</pre>
         </div>
 
         <div className='setup'>

@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import httpx
 import asyncio
 from pydantic import BaseModel
+import uvicorn
 
 app = FastAPI() 
 
@@ -84,7 +85,8 @@ async def input(obj: Item):
     token = await get_token(data)
     if token:
         result = await get_answer(token)
-    my_dict = {"answer": result}
-    
+    my_dict = {"answer": result}    
     return my_dict
-   
+
+if __name__ == "__main__":
+    uvicorn.run(app, host='0.0.0.0', port=8000)

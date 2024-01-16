@@ -41,6 +41,10 @@
   text-align: center;
 }
 
+.output-answer{
+  margin-left: 15px;
+}
+
 .setup{
   display: flex;
   align-items: center;
