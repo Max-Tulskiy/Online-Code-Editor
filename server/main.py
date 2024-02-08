@@ -1,10 +1,11 @@
-from typing import Any
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 import httpx
 import asyncio
+from typing import Any
+from fastapi import FastAPI
 from pydantic import BaseModel
-import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI() 
 
@@ -83,10 +84,14 @@ async def input(obj: Item):
         "enable_network": None,
 }
     token = await get_token(data)
+    print(token)
     if token:
         result = await get_answer(token)
+    else:
+        result = "Err"
     my_dict = {"answer": result}    
     return my_dict
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host='0.0.0.0', port=8000)
