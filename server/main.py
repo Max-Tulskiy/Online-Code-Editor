@@ -84,12 +84,13 @@ async def input(obj: Item):
         "enable_network": None,
 }
     token = await get_token(data)
-    print(token)
+
     if token:
         result = await get_answer(token)
     else:
         result = "Err"
-    my_dict = {"answer": result}    
+    my_dict = {"answer": result}
+        
     return my_dict
 
 
