@@ -30,7 +30,7 @@
   3. Установка и запуск judge0:
    + Загрузка и распаковка архива
   ```bash
-wget https://github.com/judge0/judge0/releases/download/v1.13.0/judge0-v1.13.0.zip**
+wget https://github.com/judge0/judge0/releases/download/v1.13.0/judge0-v1.13.0.zip
  unzip judge0-v1.13.0.zip
  ```
   + Запуск всех служб
