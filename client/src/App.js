@@ -19,7 +19,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [langId, setLangId] = useState(null);
   
-  const api_server = 'http://localhost:8000/';
+  const api_server = process.env.REACT_APP_SERVER_URL;
   
   const onChange = useCallback((val) => {
     setInputValue(val);

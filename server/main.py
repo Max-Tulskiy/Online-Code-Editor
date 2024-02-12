@@ -1,17 +1,20 @@
+import os
 import uvicorn
 import httpx
 import asyncio
 from typing import Any
 from fastapi import FastAPI
 from pydantic import BaseModel
+from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI() 
 
+load_dotenv()
 
 origins = [
-    'http://localhost:3000'
+    os.getenv("CLIENT_URL")
 ]
 
 
@@ -31,7 +34,7 @@ class Item(BaseModel):
 
 
 async def get_token(data):
-    token_url = "http://localhost:2358/submissions"
+    token_url = os.getenv("TOKEN_URL")
 
     async with httpx.AsyncClient() as client:
         response = await client.post(token_url, data=data)
@@ -44,13 +47,11 @@ async def get_token(data):
 
 
 async def get_answer(token):
-
-    getStdOut = f"http://localhost:2358/submissions/{token.get('token')}"
+    token_url = os.getenv("TOKEN_URL")
+    getStdOut = f"{token_url}/{token.get('token')}"
     
     async with httpx.AsyncClient() as client:
-        print("Выполнение...")
         await asyncio.sleep(5)
-
         response1 = await client.get(getStdOut)
         print(response1)
         if response1.status_code // 100 == 2:
