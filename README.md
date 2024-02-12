@@ -2,7 +2,8 @@
 ## Описание:
 #### Онлайн редактор кода c поддержкой 35 языков программирования и возможностью запуска кода с помощью *[Judge0](https://ce.judge0.com/)*
 
-<Здесь гиф>
+![sample](https://github.com/Max-Tulskiy/onlineIDE/assets/90907669/95b374d6-6bef-4526-8d00-d4a67cb37982)
+
 
 ## Стек:
 + Client
@@ -29,7 +30,7 @@
   3. Установка и запуск judge0:
    + Загрузка и распаковка архива
   ```bash
-wget https://github.com/judge0/judge0/releases/download/v1.13.0/judge0-v1.13.0.zip**
+wget https://github.com/judge0/judge0/releases/download/v1.13.0/judge0-v1.13.0.zip
  unzip judge0-v1.13.0.zip
  ```
   + Запуск всех служб
