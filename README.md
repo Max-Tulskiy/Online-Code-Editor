@@ -24,7 +24,7 @@
     npm install && npm start
     ```
     
-  1. Запуск сервера
+  2. Запуск сервера
   + Создайте файл .env со следующим содержимым:
   ```Python
   CLIENT_URL="http://localhost:3000"
@@ -38,7 +38,7 @@
     ```Python
     uvicorn main:app --reload
     ``` 
-  1. Установка и запуск judge0:
+  3. Установка и запуск judge0:
    + Загрузка и распаковка архива
   ```bash
 wget https://github.com/judge0/judge0/releases/download/v1.13.0/judge0-v1.13.0.zip
