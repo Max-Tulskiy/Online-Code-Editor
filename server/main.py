@@ -52,7 +52,7 @@ async def get_answer(token):
         await asyncio.sleep(5)
 
         response1 = await client.get(getStdOut)
-
+        print(response1)
         if response1.status_code // 100 == 2:
             full_answer = response1.json()
             return full_answer["stdout"]
@@ -65,7 +65,7 @@ async def input(obj: Item):
 
     if obj.language_id == '':
         return {"answer": "Choose language"}    
-        
+     
     data = {
         "source_code": obj.code,
         "language_id": obj.language_id,
@@ -84,13 +84,13 @@ async def input(obj: Item):
         "enable_network": None,
 }
     token = await get_token(data)
-
+ 
     if token:
         result = await get_answer(token)
     else:
-        result = "Err"
+        result = "Judge not availible"
     my_dict = {"answer": result}
-        
+   
     return my_dict
 
 
